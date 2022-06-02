@@ -1,1 +1,2 @@
 add_executable(factory_method factory_method.cpp)
+add_executable(abstract_factory abstract_factory.cpp)
