@@ -33,9 +33,9 @@ jobs:
       uses: actions/upload-artifact@v3.1.0
       with:
         # Artifact name
-        name: singletone
+        name: bins
         # Destination path
-        path: ${{github.workspace}}/build/src/patterns/singleton
+        path: ${{github.workspace}}/build/bin/*
         if-no-files-found: error
 #     - name: Test
 #       working-directory: ${{github.workspace}}/build
