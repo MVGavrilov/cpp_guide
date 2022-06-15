@@ -27,16 +27,16 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}; ls ${{github.workspace}}/build/src/patterns
       
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v3.0.0
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v3.1.0
       with:
         # Artifact name
-        name: singletone
+        name: bins
         # Destination path
-        path: ${{github.workspace}}/build/src/singteton
-
+        path: ${{github.workspace}}/build/bin/*
+        if-no-files-found: error
 #     - name: Test
 #       working-directory: ${{github.workspace}}/build
 #       # Execute tests defined by the CMake configuration.  
