@@ -35,7 +35,7 @@ jobs:
         # Artifact name
         name: singletone
         # Destination path
-        path: ${{github.workspace}}/build/src/singteton
+        path: ${{github.workspace}}/build/src/patterns/singleton.exe
 
 #     - name: Test
 #       working-directory: ${{github.workspace}}/build
