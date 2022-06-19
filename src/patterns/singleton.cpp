@@ -20,7 +20,11 @@ public:
     void doSomething()
     {
         std::cout<<"Singleton did something "<<++counter<<" times"<<std::endl;
-        // do something
+    }
+
+    ~Singleton()
+    {
+        delete instance;
     }
 private:
     Singleton() = default;

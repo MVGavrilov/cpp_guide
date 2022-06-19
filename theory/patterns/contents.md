@@ -5,3 +5,5 @@
   - [Строитель](./builder.md)
   - [Прототип](./prototype.md)
   - [Singleton](./singleton.md)
+- Структурные паттерны проектирования:
+  - [Декоратор](./decorator.md)
