@@ -12,3 +12,5 @@
 
 ## Список тем
 * [Паттерны проектирования](./theory/patterns/contents.md)
+* [Умные указатели](./theory/smart_pointers.md)
+* [Многопоточность]()
