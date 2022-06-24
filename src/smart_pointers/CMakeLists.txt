@@ -1,5 +1,7 @@
 add_executable(uniq_ptr unique_ptr.cpp)
+find_package (Threads)
 add_executable(shared_ptr shared_ptr.cpp)
+target_link_libraries (shared_ptr ${CMAKE_THREAD_LIBS_INIT})
 add_executable(weak_ptr weak_ptr.cpp)
 
 add_custom_target(smart_pointers)

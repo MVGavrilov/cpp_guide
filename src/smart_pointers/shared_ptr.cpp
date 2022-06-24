@@ -17,7 +17,7 @@ public:
 };
 
 std::ostream &operator<<(std::ostream& os, const MyClass &tmp) {
-    return os << "MyClass with a = " << tmp.a << std::endl;
+    return os << "MyClass with a = " << tmp.a ;
 }
 
 void f1(std::shared_ptr<MyClass> ptr)
@@ -44,7 +44,7 @@ int main() {
     std::cout<< "ptr reset" << std::endl;
     t1.join();
     t2.join();
-    std::cout << "main finished" << std::endl;
     sleep(1);
+    std::cout << "main finished" << std::endl;
     return 0;
 }
