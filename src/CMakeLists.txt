@@ -1,5 +1,5 @@
 add_subdirectory(patterns)
 add_subdirectory(smart_pointers)
-IF (EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/test.cpp")
+if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/test.cpp)
     add_executable(test test.cpp)
-ENDIF ()
+endif ()
