@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+
 /*
  * Далее будет написана наиболее полная реализация паттерна Builder, с различными "продуктами" и
  * "директором", который будет использовать классы строителя.
@@ -11,8 +12,9 @@
 class Car {
 public:
     std::vector<std::string> parts;
+
     void getParts() {
-        for (auto part : parts) {
+        for (const auto &part: parts) {
             std::cout << part << std::endl;
         }
     }
@@ -21,21 +23,27 @@ public:
 class Instruction {
 public:
     std::vector<std::string> instructions;
+
     void getInstructions() {
-        for (auto instruction : instructions) {
+        for (const auto &instruction: instructions) {
             std::cout << instruction << std::endl;
         }
     }
 };
+
 /*
  * Общий интерфейс для всех классов строителей. Он определяет методы для создания продуктов.
  */
 class Builder {
 public:
     virtual ~Builder() = default;
+
     virtual void addDoors() = 0;
+
     virtual void addEngine() = 0;
+
     virtual void addWheels() = 0;
+
     virtual void reset() = 0;
 };
 
@@ -45,51 +53,71 @@ public:
 
 class CarBuilder : public Builder {
 private:
-    Car *car;
+    Car *car = nullptr;
 public:
-    void reset() {
-        if (car) {
-            delete car;
-        }
+    void reset() override {
+        delete car;
         car = new Car();
     }
+
     ~CarBuilder() override {
         delete car;
     }
+
     void addDoors() override {
-        car->parts.push_back("doors");
+        if (car) {
+            car->parts.emplace_back("doors");
+        }
     }
+
     void addEngine() override {
-        car->parts.push_back("engine");
+        if (car) {
+            car->parts.emplace_back("engine");
+        }
     }
+
     void addWheels() override {
-        car->parts.push_back("wheels");
+        if (car) {
+            car->parts.emplace_back("wheels");
+        }
     }
-    Car* getCar() {
+
+    Car *getCar() {
         return car;
     }
 };
 
 class InstructionBuilder : public Builder {
 private:
-    Instruction *instruction;
+    Instruction *instruction = nullptr;
 public:
-    void reset() {
+    void reset() override {
         instruction = new Instruction();
     }
+
     ~InstructionBuilder() override {
         delete instruction;
     }
+
     void addDoors() override {
-        instruction->instructions.push_back("doors instruction");
+        if (instruction) {
+            instruction->instructions.emplace_back("doors instruction");
+        }
     }
+
     void addEngine() override {
-        instruction->instructions.push_back("engine instruction");
+        if (instruction) {
+            instruction->instructions.emplace_back("engine instruction");
+        }
     }
+
     void addWheels() override {
-        instruction->instructions.push_back("wheels instruction");
+        if (instruction) {
+            instruction->instructions.emplace_back("wheels instruction");
+        }
     }
-    Instruction* getInstruction() {
+
+    Instruction *getInstruction() {
         return instruction;
     }
 };
@@ -104,18 +132,21 @@ class Director {
 private:
     Builder *builder;
 public:
-    Director(Builder *builder) : builder(builder) {}
+    explicit Director(Builder *builder) : builder(builder) {}
+
     void baseProduct() {
         builder->reset();
         builder->addEngine();
         builder->addWheels();
     };
+
     void fullProduct() {
         builder->reset();
         builder->addDoors();
         builder->addEngine();
         builder->addWheels();
     };
+
     Builder *getBuilder() {
         return builder;
     }
@@ -129,7 +160,7 @@ int main() {
      */
     Director *director = new Director(new CarBuilder());
     director->baseProduct();
-    CarBuilder*  carBuilder = dynamic_cast<CarBuilder*>(director->getBuilder());
+    CarBuilder *carBuilder = dynamic_cast<CarBuilder *>(director->getBuilder());
     Car *car = carBuilder->getCar();
     car->getParts();
     delete car;
@@ -137,7 +168,7 @@ int main() {
 
     director = new Director(new InstructionBuilder());
     director->fullProduct();
-    InstructionBuilder*  instructionBuilder = dynamic_cast<InstructionBuilder*>(director->getBuilder());
+    InstructionBuilder *instructionBuilder = dynamic_cast<InstructionBuilder *>(director->getBuilder());
     Instruction *instruction = instructionBuilder->getInstruction();
     instruction->getInstructions();
     delete instruction;

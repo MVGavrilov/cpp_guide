@@ -11,17 +11,18 @@
 class Chair {
 public:
     virtual ~Chair() = default;
+
     virtual std::string sit() = 0;
 };
 
-class ModernChair: public Chair {
+class ModernChair : public Chair {
 public:
     std::string sit() override {
         return "Sitting down on modern chair";
     };
 };
 
-class VictorianChair: public Chair {
+class VictorianChair : public Chair {
 public:
     std::string sit() override {
         return "Sitting down on victorian chair";
@@ -31,17 +32,18 @@ public:
 class Sofa {
 public:
     virtual ~Sofa() = default;
+
     virtual std::string lay() = 0;
 };
 
-class ModernSofa: public Sofa {
-    std::string lay() {
+class ModernSofa : public Sofa {
+    std::string lay() override {
         return "Laying down on modern sofa";
     };
 };
 
-class VictorianSofa: public Sofa {
-    std::string lay() {
+class VictorianSofa : public Sofa {
+    std::string lay() override {
         return "Laying down on victorian sofa";
     };
 };
@@ -49,16 +51,17 @@ class VictorianSofa: public Sofa {
 class Table {
 public:
     virtual ~Table() = default;
+
     virtual std::string put(std::string obj) = 0;
 };
 
-class ModernTable: public Table {
+class ModernTable : public Table {
     std::string put(std::string obj) override {
         return "Putting " + obj + " on modern table";
     };
 };
 
-class VictorianTable: public Table {
+class VictorianTable : public Table {
     std::string put(std::string obj) override {
         return "Putting " + obj + " on victorian table";
     };
@@ -72,38 +75,45 @@ class VictorianTable: public Table {
 class FurnitureFactory {
 public:
     virtual ~FurnitureFactory() = default;
-    virtual Chair* createChair() = 0;
-    virtual Sofa* createSofa() = 0;
-    virtual Table* createTable() = 0;
+
+    virtual Chair *createChair() = 0;
+
+    virtual Sofa *createSofa() = 0;
+
+    virtual Table *createTable() = 0;
 };
 
-class ModernFurnitureFactory: public FurnitureFactory {
+class ModernFurnitureFactory : public FurnitureFactory {
 public:
-    Chair * createChair() override {
+    Chair *createChair() override {
         return new ModernChair();
     };
-    Sofa * createSofa() override {
+
+    Sofa *createSofa() override {
         return new ModernSofa();
     };
-    Table * createTable() override {
+
+    Table *createTable() override {
         return new ModernTable();
     };
 };
 
-class VictorianFurnitureFactory: public FurnitureFactory {
+class VictorianFurnitureFactory : public FurnitureFactory {
 public:
-    Chair * createChair() override {
+    Chair *createChair() override {
         return new VictorianChair();
     };
-    Sofa * createSofa() override {
+
+    Sofa *createSofa() override {
         return new VictorianSofa();
     };
-    Table * createTable() override {
+
+    Table *createTable() override {
         return new VictorianTable();
     };
 };
 
-void createFurniture(FurnitureFactory* factory) {
+void createFurniture(FurnitureFactory *factory) {
     Chair *chair = factory->createChair();
     Sofa *sofa = factory->createSofa();
     Table *table = factory->createTable();

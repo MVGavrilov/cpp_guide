@@ -3,38 +3,40 @@
 #include <string>
 #include <iostream>
 
-class Logger{
+class Logger {
 public:
-    virtual void log(const std::string& message) = 0;
+    virtual void log(const std::string &message) = 0;
 };
 
-class StdOutLogger: public Logger{
+class StdOutLogger : public Logger {
 public:
-    void log(const std::string& message) override{
+    void log(const std::string &message) override {
         std::cout << message << std::endl;
     }
 };
 
-class LoggerDecorator: public Logger{
+class LoggerDecorator : public Logger {
 protected:
-    Logger* logger;
+    Logger *logger;
 public:
-    LoggerDecorator(Logger* logger): logger(logger){}
+    explicit LoggerDecorator(Logger *logger) : logger(logger) {}
 };
 
-class RedLogger: public LoggerDecorator{
+class RedLogger : public LoggerDecorator {
 public:
-    RedLogger(Logger* logger): LoggerDecorator(logger){}
-    void log(const std::string& message) override{
+    explicit RedLogger(Logger *logger) : LoggerDecorator(logger) {}
+
+    void log(const std::string &message) override {
         std::string redMessage = "\033[31m" + message + "\033[0m";
         logger->log(redMessage);
     }
 };
 
-class StarLogger: public LoggerDecorator{
+class StarLogger : public LoggerDecorator {
 public:
-    StarLogger(Logger* logger): LoggerDecorator(logger){}
-    void log(const std::string& message) override{
+    explicit StarLogger(Logger *logger) : LoggerDecorator(logger) {}
+
+    void log(const std::string &message) override {
         std::string starMessage = "*" + message + "*";
         logger->log(starMessage);
     }

@@ -3,8 +3,7 @@
 #include <iostream>
 #include <memory>
 
-void check_ptr(std::weak_ptr<int> ptr)
-{
+void check_ptr(std::weak_ptr<int> ptr) {
     if (auto sp = ptr.lock())
         std::cout << *sp << std::endl;
     else

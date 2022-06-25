@@ -7,29 +7,29 @@
 
 class MyClass {
 public:
-    MyClass(int a): a(a) {
+    explicit MyClass(int a) : a(a) {
         std::cout << "MyClass created" << std::endl;
     }
+
     ~MyClass() {
         std::cout << "MyClass destroyed" << std::endl;
     }
+
     int a;
 };
 
-std::ostream &operator<<(std::ostream& os, const MyClass &tmp) {
-    return os << "MyClass with a = " << tmp.a ;
+std::ostream &operator<<(std::ostream &os, const MyClass &tmp) {
+    return os << "MyClass with a = " << tmp.a;
 }
 
-void f1(std::shared_ptr<MyClass> ptr)
-{
+void f1(std::shared_ptr<MyClass> ptr) {
     sleep(2);
     std::cout << *ptr << std::endl;
     sleep(2);
     std::cout << "f1 finished" << std::endl;
 }
 
-void f2(std::shared_ptr<MyClass> ptr)
-{
+void f2(std::shared_ptr<MyClass> ptr) {
     sleep(1);
     std::cout << *ptr << std::endl;
     sleep(1);
@@ -41,7 +41,7 @@ int main() {
     auto t1 = std::thread(f1, ptr);
     auto t2 = std::thread(f2, ptr);
     ptr.reset();
-    std::cout<< "ptr reset" << std::endl;
+    std::cout << "ptr reset" << std::endl;
     t1.join();
     t2.join();
     sleep(1);

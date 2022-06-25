@@ -10,6 +10,7 @@ public:
         std::cin >> str;
         return str;
     };
+
     virtual ~StdInReader() = default;
 };
 
@@ -17,8 +18,8 @@ class StringReturner {
 private:
     std::string str;
 public:
-    StringReturner(std::string str): str(str){};
-    StringReturner() = delete;
+    explicit StringReturner(const std::string &ret_str) : str(ret_str) {};
+
     std::string return_string() const {
         return str;
     };
@@ -27,16 +28,17 @@ public:
 class StdInReaderAdapter : public StdInReader {
 public:
     StdInReaderAdapter() = delete;
-    StdInReaderAdapter(StringReturner* str_returner): str_returner(str_returner){};
+
+    explicit StdInReaderAdapter(StringReturner *str_returner) : str_returner(str_returner) {};
+
     std::string read_from_input() const override {
         return str_returner->return_string();
     };
 private:
-    StringReturner* str_returner;
+    StringReturner *str_returner;
 };
 
-void f1(const StdInReader& std_in_reader)
-{
+void f1(const StdInReader &std_in_reader) {
     std::cout << "Print something: " << std::endl;
     std::string str = std_in_reader.read_from_input();
     std::cout << "You printed " << str << std::endl;

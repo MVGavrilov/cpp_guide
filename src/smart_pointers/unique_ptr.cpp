@@ -5,21 +5,22 @@
 
 class MyClass {
 public:
-    MyClass(int a): a(a) {
+    explicit MyClass(int a) : a(a) {
         std::cout << "MyClass created" << std::endl;
     }
+
     ~MyClass() {
         std::cout << "MyClass destroyed" << std::endl;
     }
+
     int a;
 };
 
-std::ostream &operator<<(std::ostream& os, const MyClass &tmp) {
+std::ostream &operator<<(std::ostream &os, const MyClass &tmp) {
     return os << "MyClass with a = " << tmp.a << std::endl;
 }
 
-void my_func(std::unique_ptr<MyClass> ptr)
-{
+void my_func(std::unique_ptr<MyClass> ptr) {
     std::cout << *ptr << std::endl;
 }
 
